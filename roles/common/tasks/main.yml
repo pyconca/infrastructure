@@ -1,0 +1,34 @@
+---
+
+- name: Update apt cache
+  apt: update_cache=yes
+  tags:
+    - dependencies
+
+- name: Upgrade all safe packages
+  apt: upgrade=safe
+  tags:
+    - dependencies
+
+- name: Install necessities and nice-to-haves
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - apticron
+    - build-essential
+    - git
+    - htop
+    - iftop
+    - iotop
+    - mosh
+    - python-software-properties
+    - unattended-upgrades
+    - vim
+    - bc
+  tags:
+    - dependencies
+
+- name: Apticron email configuration
+  template: src=apticron.conf.js dest=/etc/apticron/apticron.conf
+
+- include: security.yml tags=security
+

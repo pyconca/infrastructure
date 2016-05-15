@@ -1,0 +1,11 @@
+---
+- hosts: all
+  user: deploy
+  sudo: True
+  gather_facts: True
+  var_files:
+    - vars/default.yml
+    - vars/secret.yml
+
+  roles:
+    - common

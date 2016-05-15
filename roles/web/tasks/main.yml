@@ -1,0 +1,14 @@
+---
+
+- name: Install nginx
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - nginx
+  tags:
+    - dependencies
+
+- name: Copy Let's Encrypt config file
+  copy: src=etc_nginx_letsencrypt.conf dest=/etc/nginx/letsencrypt.conf
+  notify: restart nginx
+
+- include: letsencrypt.yml tags=letsencrypt
