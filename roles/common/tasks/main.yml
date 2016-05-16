@@ -2,16 +2,19 @@
 
 - name: Update apt cache
   apt: update_cache=yes
+  become: true
   tags:
     - dependencies
 
 - name: Upgrade all safe packages
   apt: upgrade=safe
+  become: true
   tags:
     - dependencies
 
 - name: Install necessities and nice-to-haves
   apt: pkg={{ item }} state=installed
+  become: true
   with_items:
     - apticron
     - build-essential
@@ -28,7 +31,8 @@
     - dependencies
 
 - name: Apticron email configuration
-  template: src=apticron.conf.js dest=/etc/apticron/apticron.conf
+  template: src=apticron.conf.j2 dest=/etc/apticron/apticron.conf
+  become: true
 
 - include: security.yml tags=security
 

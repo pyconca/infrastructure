@@ -1,0 +1,16 @@
+---
+
+- name: Clone H5BP repository
+  become: true
+  git: repo=https://github.com/h5bp/server-configs-nginx.git
+       dest=/opt/h5bp-server-configs-nginx
+
+- name: Add H5BP config files to nginx root
+  become: true
+  command: creates=/etc/nginx/mime.types cp /opt/h5bp-server-configs-nginx/mime.types /etc/nginx/mime.types
+  notify: restart nginx
+
+- name: Add H5BP config directory to nginx root
+  become: true
+  command: creates=/etc/nginx/h5bp cp -r /opt/h5bp-server-configs-nginx/h5bp /etc/nginx/h5bp
+  notify: restart nginx

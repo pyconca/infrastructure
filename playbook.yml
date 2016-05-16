@@ -1,11 +1,14 @@
 ---
 - hosts: all
   user: deploy
-  sudo: True
+  become_method: sudo
   gather_facts: True
-  var_files:
+
+  vars_files:
     - vars/default.yml
     - vars/secret.yml
 
   roles:
     - common
+    - web
+    - letsencrypt

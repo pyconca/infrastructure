@@ -2,13 +2,25 @@
 
 - name: Install nginx
   apt: pkg={{ item }} state=installed
+  become: true
   with_items:
     - nginx
   tags:
     - dependencies
 
 - name: Copy Let's Encrypt config file
+  become: true
   copy: src=etc_nginx_letsencrypt.conf dest=/etc/nginx/letsencrypt.conf
   notify: restart nginx
 
-- include: letsencrypt.yml tags=letsencrypt
+- name: Copy nginx server configs
+  copy: src={{ item.template }} dest=/etc/nginx/sites-enabled/{{ item.file }}
+  become: true
+  with_items:
+    - template: etc_nginx_sites-enabled-pynorth.org-portland.conf
+      file: pynorth.org-portland
+    - template: etc_nginx_sites-enabled-no-default.conf
+      file: default
+  notify: restart nginx
+
+- include: h5bp.yml tags=h5bp

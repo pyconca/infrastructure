@@ -1,0 +1,21 @@
+---
+
+- name: Clone Let's Encrypt repository
+  become: true
+  git: repo=https://github.com/letsencrypt/letsencrypt
+       dest=/opt/letsencrypt
+
+- name: Create Let's Encrypt config directory
+  become: true
+  file: path=/etc/letsencrypt state=directory
+
+- name: Copy over the Let's Encrypt config
+  become: true
+  template: src=le-renew-webroot.ini.j2 dest=/etc/letsencrypt/le-renew-webroot.ini
+
+# TODO Certificates shouldn't generate unless the `le-renew-webroot.ini.j2`
+#      file get updated.
+
+- name: Generate Let's Encrypt certificates
+  become: true
+  shell: "/opt/letsencrypt/letsencrypt-auto certonly -a webroot --agree-tos --renew-by-default --config /etc/letsencrypt/le-renew-webroot.ini"

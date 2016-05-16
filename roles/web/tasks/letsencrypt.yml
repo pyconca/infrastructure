@@ -1,7 +1,0 @@
-- name: Clone Let's Encrypt repository
-  git: repo=https://github.com/letsencrypt/letsencrypt
-       dest=/opt/letsencrypt
-
-- name: Copy Let's Encrypt config file
-  copy: src=etc_nginx_letsencrypt.conf dest=/etc/nginx/letsencrypt.conf
-  notify: restart nginx
