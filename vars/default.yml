@@ -9,3 +9,9 @@ letsencrypt_domains:
   - 2013.pycon.ca
   - 2015.pycon.ca
   - 2016.pycon.ca
+
+users:
+  - username: pdm
+    github_username: pdmccormick
+  - username: myles
+    github_username: myles
