@@ -20,7 +20,7 @@
     - template: etc_nginx_sites-enabled-pynorth.org-portland.conf
       file: pynorth.org-portland
     - template: etc_nginx_sites-enabled-no-default.conf
-      file: default
+      file: xxx-default
   notify: restart nginx
 
 - include: h5bp.yml tags=h5bp
