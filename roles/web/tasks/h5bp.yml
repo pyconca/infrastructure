@@ -4,6 +4,7 @@
   become: true
   git: repo=https://github.com/h5bp/server-configs-nginx.git
        dest=/opt/h5bp-server-configs-nginx
+       version=1.0.0
 
 - name: Add H5BP config files to nginx root
   become: true
