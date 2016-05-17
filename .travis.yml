@@ -1,0 +1,11 @@
+language: python
+python: "2.7"
+cache:
+  directories:
+    - $HOME/.cache/pip
+install:
+  - pip install ansible==2.0.1.0
+  - pip install ansible-lint==2.6.2
+script:
+  - ansible-playbook --syntax-check -i hosts playbook.yml
+  - ansible-lint playbook.yml
