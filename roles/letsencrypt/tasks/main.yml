@@ -19,3 +19,4 @@
 - name: Generate Let's Encrypt certificates
   become: true
   shell: "/opt/letsencrypt/letsencrypt-auto certonly -a webroot --agree-tos --renew-by-default --config /etc/letsencrypt/le-renew-webroot.ini"
+  notify: restart nginx

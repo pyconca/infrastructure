@@ -1,25 +1,30 @@
 ---
 
 - name: Install ufw
-  apt: pkg=ufw state-present
+  apt: pkg=ufw state=present
+  become: true
   tags:
     - dependencies
     - ufw
 
 - name: Deny everything
   ufw: policy=deny
+  become: true
   tags: ufw
 
 - name: Set firewall rule for DNS
   ufw: rule=allow port=domain
+  become: true
   tags: ufw
 
 - name: Set firewall rule for mosh
   ufw: rule=allow port=60000:61000 proto=udp
+  become: true
   tags: ufw
 
 - name: Set firewall rules for web traffic and SSH
   ufw: rule=allow port={{ item }} proto=tcp
+  become: true
   with_items:
     - http
     - https
@@ -28,15 +33,18 @@
 
 - name: Enable UFW
   ufw: state=enabled
+  become: true
   tags: ufw
 
 - name: Check config of ufw
   command: cat /etc/ufw/ufw.conf
   register: ufw_config
+  become: true
   changed_when: False  # never report as "changed"
   tags: ufw
 
 - name: Disable logging (workaround for known bug in Debian 7)
   ufw: logging=off
+  become: true
   when: "ansible_lsb['codename'] == 'wheezy' and 'LOGLEVEL=off' not in ufw_config.stdout"
   tags: ufw

@@ -35,4 +35,4 @@
   become: true
 
 - include: security.yml tags=security
-- include: ufw.yml tags=ufw
+# - include: ufw.yml tags=ufw
