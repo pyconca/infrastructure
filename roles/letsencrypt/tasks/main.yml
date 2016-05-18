@@ -20,3 +20,19 @@
   become: true
   shell: "/opt/letsencrypt/letsencrypt-auto certonly -a webroot --agree-tos --renew-by-default --config /etc/letsencrypt/le-renew-webroot.ini"
   notify: restart nginx
+
+- name: Copy over the Let's Encrypt renew script
+  become: true
+  copy: src=etc_letsencrypt_le-renew-webroot.sh
+        dest=/etc/letsencrypt/le-renew-webroot
+        mode="u=rwx,g=r,o=r"
+
+- name: Setup a cron job to renew Let's Encrypt certificate
+  become: true
+  cron: name="renew letsencrypt certificate"
+        minute=30
+        hour=2
+        weekday=1
+        user="root"
+        job="/etc/letsencrypt/le-renew-webroot >> /var/log/le-renewal.log"
+        cron_file=letsencrypt-renew
