@@ -3,7 +3,11 @@ admin_email: infrastructure@pycon.ca
 
 letsencrypt_domains:
   - portland.pynorth.org
+  - pycon.ca
+  - www.pycon.ca
   - 2012.pycon.ca
+  - 2013.pycon.ca
+  - 2015.pycon.ca
 
 users:
   - username: pdm
