@@ -13,13 +13,11 @@
   become: true
   template: src=le-renew-webroot.ini.j2 dest=/etc/letsencrypt/le-renew-webroot.ini
 
-# TODO Certificates shouldn't generate unless the `le-renew-webroot.ini.j2`
-#      file get updated.
-
-- name: Generate Let's Encrypt certificates
-  become: true
-  shell: "/opt/letsencrypt/letsencrypt-auto certonly -a webroot --agree-tos --renew-by-default --config /etc/letsencrypt/le-renew-webroot.ini"
-  notify: restart nginx
+# TODO Figure out a better way to handle the certificate generation process.
+# - name: Generate Let's Encrypt certificates
+#   become: true
+#   shell: "/opt/letsencrypt/letsencrypt-auto certonly -a webroot --agree-tos --renew-by-default --config /etc/letsencrypt/le-renew-webroot.ini"
+#   notify: restart nginx
 
 - name: Copy over the Let's Encrypt renew script
   become: true
