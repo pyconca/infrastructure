@@ -19,6 +19,8 @@
   with_items:
     - template: etc_nginx_sites-enabled-pycon.ca-www.conf
       file: pycon.ca-www
+    - template: etc_nginx_sites-enabled-pycon.ca-2016.conf
+      file: pycon.ca-2016
     - template: etc_nginx_sites-enabled-pycon.ca-2015.conf
       file: pycon.ca-2015
     - template: etc_nginx_sites-enabled-pycon.ca-2013.conf
