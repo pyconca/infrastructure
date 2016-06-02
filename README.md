@@ -3,7 +3,7 @@
 ## Run the Ansible Playbook
 
 ```
-$ $ ansible-playbook -i ./hosts playbook.yml
+$ ansible-playbook -i ./hosts playbook.yml
 ```
 
 ## TODOs
