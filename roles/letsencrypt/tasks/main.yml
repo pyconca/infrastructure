@@ -4,6 +4,7 @@
   become: true
   git: repo=https://github.com/letsencrypt/letsencrypt
        dest=/opt/letsencrypt
+       force=yes
 
 - name: Create Let's Encrypt config directory
   become: true
