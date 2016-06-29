@@ -81,4 +81,4 @@
       file: xxx-default
   notify: restart nginx
 
-- include: h5bp.yml tags=h5bp
+- include: h5bp.yml
