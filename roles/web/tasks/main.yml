@@ -1,12 +1,60 @@
 ---
 
 - name: Install nginx
-  apt: pkg={{ item }} state=installed
+  apt:
+    pkg: "{{ item }}"
+    state: installed
   become: true
   with_items:
     - nginx
-  tags:
-    - dependencies
+  tags: dependencies
+
+- name: Create the directory for the websites
+  become: true
+  file:
+    path: "/srv/www/{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - pycon.ca/2016
+    - pycon.ca/staging.2016
+    - pycon.ca/2015
+    - pycon.ca/2013
+    - pycon.ca/2012
+    - pycon.ca/www
+    - pynorth.org/portland
+
+- name: Create the logs directory for the websites
+  become: true
+  file:
+    path: "/srv/www/{{ item }}/logs"
+    state: directory
+    mode: 0755
+  with_items:
+    - pycon.ca/2016
+    - pycon.ca/staging.2016
+    - pycon.ca/2015
+    - pycon.ca/2013
+    - pycon.ca/2012
+    - pycon.ca/www
+    - pynorth.org/portland
+
+- name: Create the html directory for the websites
+  become: true
+  file:
+    path: "/srv/www/{{ item }}/html"
+    state: directory
+    mode: 0755
+    owner: deploy
+    group: deploy
+  with_items:
+    - pycon.ca/2016
+    - pycon.ca/staging.2016
+    - pycon.ca/2015
+    - pycon.ca/2013
+    - pycon.ca/2012
+    - pycon.ca/www
+    - pynorth.org/portland
 
 - name: Copy Let's Encrypt config file
   become: true

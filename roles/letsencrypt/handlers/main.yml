@@ -1,0 +1,2 @@
+- name: run letsencrypt-auto
+  action: shell "/opt/letsencrypt/letsencrypt-auto certonly -a webroot --agree-tos --renew-by-default --config /etc/letsencrypt/le-renew-webroot.ini"

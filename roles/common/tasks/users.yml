@@ -1,11 +1,13 @@
 - name: Create some individual user accounts
-  user: name={{ item.username }}
-        groups=adm,admins
-        append=yes
+  user:
+    name: "{{ item.username }}"
+    groups: adm,admins
+    append: yes
   with_items: "{{ users }}"
 
 - name: Add people's SSH authorized_key from GitHub
-  authorized_key: user={{ item.username }}
-                  key=https://github.com/{{ item.github_username }}.key
-                  validate_certs=no
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "https://github.com/{{ item.github_username }}.key"
+    validate_certs: no
   with_items: "{{ users }}"
