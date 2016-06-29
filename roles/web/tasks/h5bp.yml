@@ -2,16 +2,24 @@
 
 - name: Clone H5BP repository
   become: true
-  git: repo=https://github.com/h5bp/server-configs-nginx.git
-       dest=/opt/h5bp-server-configs-nginx
-       version=1.0.0
+  git:
+    repo: https://github.com/h5bp/server-configs-nginx.git
+    dest: /opt/h5bp-server-configs-nginx
+    version: 1.0.0
 
 - name: Add H5BP config files to nginx root
   become: true
-  command: creates=/etc/nginx/mime.types cp /opt/h5bp-server-configs-nginx/mime.types /etc/nginx/mime.types
+  file:
+    src: /opt/h5bp-server-configs-nginx/mime.types
+    dest: /etc/nginx/mime.types
+    state: link
+    force: yes
   notify: restart nginx
 
 - name: Add H5BP config directory to nginx root
   become: true
-  command: creates=/etc/nginx/h5bp cp -r /opt/h5bp-server-configs-nginx/h5bp /etc/nginx/h5bp
+  file:
+    src: /opt/h5bp-server-configs-nginx/h5bp
+    dest: /etc/nginx/h5bp
+    state: link
   notify: restart nginx
