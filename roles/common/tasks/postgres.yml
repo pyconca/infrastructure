@@ -1,0 +1,7 @@
+---
+
+- name: Ensure database for Django app
+  postgresql_db: name={{dbname}} login_user=deploy
+
+- name: Ensure Django has access to the database
+  postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpass}} priv=ALL login_user=deploy

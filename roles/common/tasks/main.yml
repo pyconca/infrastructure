@@ -27,6 +27,11 @@
     - unattended-upgrades
     - vim
     - bc
+    - postgresql
+    - postgresql-contrib
+    - libpq-dev
+    - python-psycopg2
+    - supervisor
   tags:
     - dependencies
 
@@ -36,4 +41,5 @@
 
 - include: security.yml
 - include: ufw.yml
+- include: postgres.yml
 # - include: users.yml
