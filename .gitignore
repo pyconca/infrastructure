@@ -1,2 +1,3 @@
 vars/secret.yml
 playbook.retry
+.idea

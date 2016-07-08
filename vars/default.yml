@@ -1,5 +1,7 @@
 ---
 admin_email: infrastructure@pycon.ca
+dbname: pycon2016
+dbuser: symposion
 
 letsencrypt_domains:
   - portland.pynorth.org
