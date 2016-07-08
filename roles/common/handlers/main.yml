@@ -5,3 +5,10 @@
 
 - name: restart ssh
   service: name=ssh state=restarted
+
+- name: restart postgres
+  service: name=postgresql state=restarted
+  become: true
+
+- name: reload pg config
+  command: psql postgres -c 'SELECT pg_reload_conf();'
