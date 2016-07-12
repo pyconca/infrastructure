@@ -58,11 +58,15 @@
 
 - name: Copy Let's Encrypt config file
   become: true
-  copy: src=etc_nginx_letsencrypt.conf dest=/etc/nginx/letsencrypt.conf
+  copy:
+    src: etc_nginx_letsencrypt.conf
+    dest: /etc/nginx/letsencrypt.conf
   notify: restart nginx
 
 - name: Copy nginx server configs
-  copy: src={{ item.template }} dest=/etc/nginx/sites-enabled/{{ item.file }}
+  copy:
+    src: "{{ item.template }}"
+    dest: "/etc/nginx/sites-enabled/{{ item.file }}"
   become: true
   with_items:
     - template: etc_nginx_sites-enabled-pycon.ca-www.conf
