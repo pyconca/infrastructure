@@ -7,10 +7,20 @@ letsencrypt_domains:
   - portland.pynorth.org
   - pycon.ca
   - www.pycon.ca
+  - x.pycon.ca
+  - cfp.pycon.ca
   - 2012.pycon.ca
   - 2013.pycon.ca
   - 2015.pycon.ca
   - 2016.pycon.ca
+
+redirects:
+  - from: newsletter
+    to: "http://pycon.us11.list-manage.com/subscribe?u=5cc0d84ff77b9bb778875c680&id=d2a954e0b6"
+  - from: twitter
+    to: https://twitter.com/pyconca
+  - from: facebook
+    to: https://www.facebook.com/pyconca/
 
 users:
   - username: pdm

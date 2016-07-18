@@ -22,6 +22,9 @@
     - pycon.ca/2013
     - pycon.ca/2012
     - pycon.ca/www
+    - pycon.ca/cfp
+    - pycon.ca/staging.cfp
+    - pycon.ca/redirects
     - pynorth.org/portland
 
 - name: Create the logs directory for the websites
@@ -37,6 +40,9 @@
     - pycon.ca/2013
     - pycon.ca/2012
     - pycon.ca/www
+    - pycon.ca/cfp
+    - pycon.ca/staging.cfp
+    - pycon.ca/redirects
     - pynorth.org/portland
 
 - name: Create the html directory for the websites
@@ -54,6 +60,9 @@
     - pycon.ca/2013
     - pycon.ca/2012
     - pycon.ca/www
+    - pycon.ca/cfp
+    - pycon.ca/staging.cfp
+    - pycon.ca/redirects
     - pynorth.org/portland
 
 - name: Copy Let's Encrypt config file
@@ -65,24 +74,49 @@
 
 - name: Copy nginx server configs
   copy:
-    src: "{{ item.template }}"
-    dest: "/etc/nginx/sites-enabled/{{ item.file }}"
+    src: "{{ item.from }}"
+    dest: "/etc/nginx/sites-available/{{ item.to }}"
   become: true
   with_items:
-    - template: etc_nginx_sites-enabled-pycon.ca-www.conf
-      file: pycon.ca-www
-    - template: etc_nginx_sites-enabled-pycon.ca-2016.conf
-      file: pycon.ca-2016
-    - template: etc_nginx_sites-enabled-pycon.ca-2015.conf
-      file: pycon.ca-2015
-    - template: etc_nginx_sites-enabled-pycon.ca-2013.conf
-      file: pycon.ca-2013
-    - template: etc_nginx_sites-enabled-pycon.ca-2012.conf
-      file: pycon.ca-2012
-    - template: etc_nginx_sites-enabled-pynorth.org-portland.conf
-      file: pynorth.org-portland
-    - template: etc_nginx_sites-enabled-no-default.conf
-      file: 000-default
+    - from: etc_nginx_sites-enabled_pycon.ca-www.conf
+      to: pycon.ca-www
+    - from: etc_nginx_sites-enabled_pycon.ca-2016.conf
+      to: pycon.ca-2016
+    - from: etc_nginx_sites-enabled_pycon.ca-2015.conf
+      to: pycon.ca-2015
+    - from: etc_nginx_sites-enabled_pycon.ca-2013.conf
+      to: pycon.ca-2013
+    - from: etc_nginx_sites-enabled_pycon.ca-2012.conf
+      to: pycon.ca-2012
+    - from: etc_nginx_sites-enabled_pynorth.org-portland.conf
+      to: pynorth.org-portland
+    - from: etc_nginx_sites-enabled_no-default.conf
+      to: 000-default
+    - from: etc_nginx_sites-enabled_pycon.ca-cfp.conf
+      to: pycon.ca-cfp
+
+- name: copy the redirects nginx server config
+  become: true
+  template:
+    src: etc_nginx_sites-enabled_pycon.ca-redirects.conf.j2
+    dest: /etc/nginx/sites-available/pycon.ca-redirects
+
+- name: enabled the nginx configs
+  become: true
+  file:
+    src: "/etc/nginx/sites-available/{{ item }}"
+    dest: "/etc/nginx/sites-enabled/{{ item }}"
+    state: link
+  with_items:
+    - pycon.ca-www
+    # - pycon.ca-cfp
+    - pycon.ca-redirects
+    - pycon.ca-2016
+    - pycon.ca-2015
+    - pycon.ca-2013
+    - pycon.ca-2012
+    - pynorth.org-portland
+    - 000-default
   notify: restart nginx
 
 - include: h5bp.yml
