@@ -15,9 +15,11 @@ server {
     }
 
     {% for redirect in redirects %}
+
     location = /{{ redirect.from }} {
         return 301 {{ redirect.to }};
     }
+
     {% endfor %}
 
     include letsencrypt.conf;
