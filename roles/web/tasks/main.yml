@@ -109,7 +109,7 @@
     state: link
   with_items:
     - pycon.ca-www
-    # - pycon.ca-cfp
+    - pycon.ca-cfp
     - pycon.ca-redirects
     - pycon.ca-2016
     - pycon.ca-2015
