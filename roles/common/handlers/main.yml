@@ -12,3 +12,9 @@
 
 - name: reload pg config
   command: psql postgres -c 'SELECT pg_reload_conf();'
+
+- name: restart postfix
+  service: name=postfix state=reload
+
+- name: restart opendmarc
+  service: name=opendmarc state=restarted

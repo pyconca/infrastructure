@@ -22,6 +22,10 @@ redirects:
   - from: facebook
     to: https://www.facebook.com/pyconca/
 
+mail_domains:
+  - pycon.ca
+  - pynorth.org
+
 users:
   - username: pdm
     github_username: pdmccormick

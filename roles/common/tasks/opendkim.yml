@@ -1,0 +1,76 @@
+---
+
+- name: Install OpenDKIM and related packages
+  become: true
+  apt:
+    pkg: "{{ item }}"
+    state: installed
+  with_items:
+    - opendkim
+    - opendkim-tools
+
+- name: Create OpenDKIM config directory
+  become: true
+  file:
+    state: directory
+    path: /etc/opendkim
+    group: opendkim
+    owner: opendkim
+
+- name: Create OpenDKIM key directories
+  become: true
+  file:
+    state: directory
+    path: "/etc/opendkim/keys/{{ item }}"
+    group: opendkim
+    owner: opendkim
+  with_items: mail_domains
+
+- name: Generate OpenDKIM keys
+  become: true
+  command: opendkim-genkey -r -d {{ item }} -D /etc/opendkim/keys/{{ item }}/ creates=/etc/opendkim/keys/{{ item }}/default.private
+  with_items: mail_domains
+
+- name: Put opendkim.conf into place
+  become: true
+  copy:
+    src: opendkim.conf
+    dest: /etc/opendkim.conf
+    owner: opendkim
+    group: opendkim
+  notify:
+    - restart opendkim
+    - restart postfix
+
+- name: Put additional OpenDKIM configuration files into place
+  become: true
+  template:
+    src: "opendkim/{{ item }}.j2"
+    dest: "/etc/opendkim/{{ item }}"
+    owner: opendkim
+    group: opendkim
+  with_items:
+    - KeyTable
+    - SigningTable
+    - TrustedHosts
+  notify:
+    - restart opendkim
+    - restart postfix
+
+- name: Set OpenDKIM config directory permissions
+  become: true
+  file:
+    state: directory
+    path: /etc/opendkim
+    group: opendkim
+    owner: opendkim
+    mode: 0700
+    recurse: yes
+  notify:
+    - restart opendkim
+    - restart postfix
+
+- name: set postfix smtpd_milters
+  become: true
+  shell: postconf -e 'smtpd_milters = inet:127.0.0.1:8891'
+  notify: restart postfix
