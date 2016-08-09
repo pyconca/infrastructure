@@ -70,7 +70,7 @@
     - restart opendkim
     - restart postfix
 
-- name: set postfix smtpd_milters
-  become: true
-  shell: postconf -e 'smtpd_milters = inet:127.0.0.1:8891'
-  notify: restart postfix
+# - name: set postfix smtpd_milters
+#   become: true
+#   shell: postconf -e 'smtpd_milters = inet:127.0.0.1:8891'
+#   notify: restart postfix
