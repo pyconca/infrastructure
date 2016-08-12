@@ -22,6 +22,7 @@
     - pycon.ca/2013
     - pycon.ca/2012
     - pycon.ca/www
+    - pycon.ca/blog
     - pycon.ca/cfp
     - pycon.ca/staging.cfp
     - pycon.ca/redirects
@@ -40,6 +41,7 @@
     - pycon.ca/2013
     - pycon.ca/2012
     - pycon.ca/www
+    - pycon.ca/blog
     - pycon.ca/cfp
     - pycon.ca/staging.cfp
     - pycon.ca/redirects
@@ -60,19 +62,20 @@
     - pycon.ca/2013
     - pycon.ca/2012
     - pycon.ca/www
+    - pycon.ca/blog
     - pycon.ca/cfp
     - pycon.ca/staging.cfp
     - pycon.ca/redirects
     - pynorth.org/portland
 
-- name: Copy Let's Encrypt config file
+- name: copy let's encrypt config file
   become: true
   copy:
     src: etc_nginx_letsencrypt.conf
     dest: /etc/nginx/letsencrypt.conf
   notify: restart nginx
 
-- name: Copy nginx server configs
+- name: copy nginx server configs
   copy:
     src: "{{ item.from }}"
     dest: "/etc/nginx/sites-available/{{ item.to }}"
@@ -88,6 +91,8 @@
       to: pycon.ca-2013
     - from: etc_nginx_sites-enabled_pycon.ca-2012.conf
       to: pycon.ca-2012
+    - from: etc_nginx_sites-enabled_pycon.ca-blog.conf
+      to: pycon.ca-blog
     - from: etc_nginx_sites-enabled_pynorth.org-portland.conf
       to: pynorth.org-portland
     - from: etc_nginx_sites-enabled_no-default.conf
@@ -109,6 +114,7 @@
     state: link
   with_items:
     - pycon.ca-www
+    - pycon.ca-blog
     - pycon.ca-cfp
     - pycon.ca-redirects
     - pycon.ca-2016

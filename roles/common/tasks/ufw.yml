@@ -28,6 +28,7 @@
   with_items:
     - http
     - https
+    - smtp
     - ssh
   tags: ufw
 
