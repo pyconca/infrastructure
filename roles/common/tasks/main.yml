@@ -43,4 +43,5 @@
 - include: ufw.yml
 - include: postgres.yml
 # - include: users.yml
-- include: opendkim.yml
+# - include: opendkim.yml
+- include: git-auto-deploy.yml

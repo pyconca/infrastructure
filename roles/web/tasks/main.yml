@@ -27,6 +27,7 @@
     - pycon.ca/staging.cfp
     - pycon.ca/redirects
     - pynorth.org/portland
+    - pynorth.org/git-auto-deploy
 
 - name: Create the logs directory for the websites
   become: true
@@ -46,6 +47,7 @@
     - pycon.ca/staging.cfp
     - pycon.ca/redirects
     - pynorth.org/portland
+    - pynorth.org/git-auto-deploy
 
 - name: Create the html directory for the websites
   become: true
@@ -106,6 +108,12 @@
     src: etc_nginx_sites-enabled_pycon.ca-redirects.conf.j2
     dest: /etc/nginx/sites-available/pycon.ca-redirects
 
+- name: copy the git-auto-deploy nginx server config
+  become: true
+  template:
+    src: etc_nginx_sites-enabled_pynorth.org-git-auto-deploy.conf.j2
+    dest: /etc/nginx/sites-available/pynorth.org-git-auto-deploy
+
 - name: enabled the nginx configs
   become: true
   file:
@@ -122,6 +130,7 @@
     - pycon.ca-2013
     - pycon.ca-2012
     - pynorth.org-portland
+    - pynorth.org-git-auto-deploy
     - 000-default
   notify: restart nginx
 

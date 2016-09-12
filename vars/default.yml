@@ -5,6 +5,7 @@ dbuser: symposion
 
 letsencrypt_domains:
   - portland.pynorth.org
+  - git-auto-deploy.pynorth.org
   - pycon.ca
   - www.pycon.ca
   - x.pycon.ca

@@ -1,0 +1,53 @@
+---
+
+- name: Added Git-Auto-Deploy repository
+  become: true
+  apt_repository:
+    repo: 'ppa:olipo186/git-auto-deploy'
+  tags:
+    - dependencies
+    - git-auto-deloy
+
+- name: Install Git-Auto-Deploy application
+  become: true
+  apt:
+    pkg: 'git-auto-deploy'
+    state: installed
+  tags:
+    - dependencies
+    - git-auto-deloy
+
+- name: Fix some of the defaults
+  become: true
+  copy:
+    src: etc_default_git-auto-deploy
+    dest: /etc/default/git-auto-deploy
+  tags: git-auto-deploy
+
+- name: Set /var/run/git-auto-deploy to the right user
+  become: true
+  file:
+    path: "{{ item }}"
+    owner: deploy
+    group: deploy
+  with_items:
+    - /var/run/git-auto-deploy
+    - /var/log/git-auto-deploy.log
+    - /etc/git-auto-deploy
+  tags: git-auto-deloy
+
+- name: Copy over the Git-Auto-Deploy config
+  become: true
+  template:
+    src: git-auto-deploy.conf.json
+    dest: /etc/git-auto-deploy.conf.json
+  notify:
+    - restart git-auto-deploy
+  tags: git-auto-deloy
+
+- name: Start Git-Auto-Deploy on boot
+  become: true
+  service:
+    name: git-auto-deploy
+    enabled: yes
+  tags: git-auto-deloy

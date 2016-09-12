@@ -1,0 +1,24 @@
+{
+  "pidfilepath": "/var/run/git-auto-deploy/git-auto-deploy.pid",
+  "logfilepath": "/var/log/git-auto-deploy.log",
+  "host": "127.0.0.1",
+  "port": 8001,
+  "global_deploy": [
+    "echo Deploy started!",
+    "echo Deploy completed!"
+  ],
+  "repositories": [
+    {
+      "url": "https://github.com/pyconca/2016-web.git",
+      "branch": "master",
+      "path": "/srv/www/pycon.ca/2016/app",
+      "deploy": "echo Deploying"
+    },
+    {
+      "url": "https://github.com/pyconca/2016-web.git",
+      "branch": "develop",
+      "path": "/srv/www/pycon.ca/staging.2016/app",
+      "deploy": "/srv/www/pycon.ca/staging.2016/venv/bin/fab -f /srv/www/pycon.ca/2016/app/fabfile.py stag git_auto_deploy"
+    }
+  ]
+}

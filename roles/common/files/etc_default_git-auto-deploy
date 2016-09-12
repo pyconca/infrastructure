@@ -1,0 +1,2 @@
+DAEMON_UID="deploy"
+DAEMON_GID="deploy"
