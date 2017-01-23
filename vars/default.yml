@@ -14,6 +14,7 @@ letsencrypt_domains:
   - 2013.pycon.ca
   - 2015.pycon.ca
   - 2016.pycon.ca
+  - 2017.pycon.ca
 
 redirects:
   - from: newsletter

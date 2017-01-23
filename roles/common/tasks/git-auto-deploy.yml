@@ -24,15 +24,15 @@
     dest: /etc/default/git-auto-deploy
   tags: git-auto-deploy
 
-- name: Set /var/run/git-auto-deploy to the right user
+- name: Set the correct permissions
   become: true
   file:
     path: "{{ item }}"
     owner: deploy
     group: deploy
   with_items:
-    - /var/run/git-auto-deploy
     - /var/log/git-auto-deploy.log
+    - /var/run/git-aut-deploy
     - /etc/git-auto-deploy
   tags: git-auto-deloy
 

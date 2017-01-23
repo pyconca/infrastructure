@@ -16,8 +16,9 @@
     state: directory
     mode: 0755
   with_items:
+    - pycon.ca/staging.2017
+    - pycon.ca/2017
     - pycon.ca/2016
-    - pycon.ca/staging.2016
     - pycon.ca/2015
     - pycon.ca/2013
     - pycon.ca/2012
@@ -36,8 +37,9 @@
     state: directory
     mode: 0755
   with_items:
+    - pycon.ca/staging.2017
+    - pycon.ca/2017
     - pycon.ca/2016
-    - pycon.ca/staging.2016
     - pycon.ca/2015
     - pycon.ca/2013
     - pycon.ca/2012
@@ -58,8 +60,9 @@
     owner: deploy
     group: deploy
   with_items:
+    - pycon.ca/staging.2017
+    - pycon.ca/2017
     - pycon.ca/2016
-    - pycon.ca/staging.2016
     - pycon.ca/2015
     - pycon.ca/2013
     - pycon.ca/2012
@@ -85,6 +88,8 @@
   with_items:
     - from: etc_nginx_sites-enabled_pycon.ca-www.conf
       to: pycon.ca-www
+    - from: etc_nginx_sites-enabled_pycon.ca-2017.conf
+      to: pycon.ca-2017
     - from: etc_nginx_sites-enabled_pycon.ca-2016.conf
       to: pycon.ca-2016
     - from: etc_nginx_sites-enabled_pycon.ca-2015.conf
@@ -125,6 +130,7 @@
     - pycon.ca-blog
     - pycon.ca-cfp
     - pycon.ca-redirects
+    - pycon.ca-2017
     - pycon.ca-2016
     - pycon.ca-2015
     - pycon.ca-2013

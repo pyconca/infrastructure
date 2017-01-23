@@ -44,4 +44,4 @@
 - include: postgres.yml
 # - include: users.yml
 # - include: opendkim.yml
-- include: git-auto-deploy.yml
+# - include: git-auto-deploy.yml
