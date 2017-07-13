@@ -106,6 +106,8 @@
       to: 000-default
     - from: etc_nginx_sites-enabled_pycon.ca-cfp.conf
       to: pycon.ca-cfp
+    - from: etc_nginx_sites-enabled_pycon.ca-staging.conf
+      to: pycon.ca-staging-2017
 
 - name: copy the redirects nginx server config
   become: true
@@ -129,6 +131,7 @@
     - pycon.ca-www
     - pycon.ca-blog
     - pycon.ca-cfp
+    - pycon.ca-staging-2017
     - pycon.ca-redirects
     - pycon.ca-2017
     - pycon.ca-2016

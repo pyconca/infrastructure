@@ -1,6 +1,6 @@
 ---
 admin_email: infrastructure@pycon.ca
-dbname: pycon2016
+dbname: pycon2017
 dbuser: symposion
 
 letsencrypt_domains:
@@ -10,6 +10,7 @@ letsencrypt_domains:
   - www.pycon.ca
   - x.pycon.ca
   - cfp.pycon.ca
+  - staging.pycon.ca
   - 2012.pycon.ca
   - 2013.pycon.ca
   - 2015.pycon.ca
