@@ -6,6 +6,7 @@
     repo: https://github.com/h5bp/server-configs-nginx.git
     dest: /opt/h5bp-server-configs-nginx
     version: 1.0.0
+  tags: web
 
 - name: Add H5BP config files to nginx root
   become: true
@@ -15,6 +16,7 @@
     state: link
     force: yes
   notify: restart nginx
+  tags: web
 
 - name: Add H5BP config directory to nginx root
   become: true
@@ -23,3 +25,4 @@
     dest: /etc/nginx/h5bp
     state: link
   notify: restart nginx
+  tags: web

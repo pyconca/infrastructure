@@ -7,7 +7,9 @@
   become: true
   with_items:
     - nginx
-  tags: dependencies
+  tags:
+    - dependencies
+    - web
 
 - name: Create the directory for the websites
   become: true
@@ -29,6 +31,7 @@
     - pycon.ca/redirects
     - pynorth.org/portland
     - pynorth.org/git-auto-deploy
+  tags: web
 
 - name: Create the logs directory for the websites
   become: true
@@ -50,6 +53,7 @@
     - pycon.ca/redirects
     - pynorth.org/portland
     - pynorth.org/git-auto-deploy
+  tags: web
 
 - name: Create the html directory for the websites
   become: true
@@ -72,6 +76,7 @@
     - pycon.ca/staging.cfp
     - pycon.ca/redirects
     - pynorth.org/portland
+  tags: web
 
 - name: copy let's encrypt config file
   become: true
@@ -79,6 +84,7 @@
     src: etc_nginx_letsencrypt.conf
     dest: /etc/nginx/letsencrypt.conf
   notify: restart nginx
+  tags: web
 
 - name: copy nginx server configs
   copy:
@@ -108,18 +114,21 @@
       to: pycon.ca-cfp
     - from: etc_nginx_sites-enabled_pycon.ca-staging.conf
       to: pycon.ca-staging-2017
+  tags: web
 
 - name: copy the redirects nginx server config
   become: true
   template:
     src: etc_nginx_sites-enabled_pycon.ca-redirects.conf.j2
     dest: /etc/nginx/sites-available/pycon.ca-redirects
+  tags: web
 
 - name: copy the git-auto-deploy nginx server config
   become: true
   template:
     src: etc_nginx_sites-enabled_pynorth.org-git-auto-deploy.conf.j2
     dest: /etc/nginx/sites-available/pynorth.org-git-auto-deploy
+  tags: web
 
 - name: enabled the nginx configs
   become: true
@@ -142,5 +151,6 @@
     - pynorth.org-git-auto-deploy
     - 000-default
   notify: restart nginx
+  tags: web
 
 - include: h5bp.yml
