@@ -24,6 +24,8 @@ redirects:
     to: https://twitter.com/pyconca
   - from: facebook
     to: https://www.facebook.com/pyconca/
+  - from: cfp
+    to: https://www.papercall.io/pyconca2017
 
 mail_domains:
   - pycon.ca

@@ -27,3 +27,27 @@ server {
     error_log /srv/www/pycon.ca/redirects/logs/error.log;
     access_log /srv/www/pycon.ca/redirects/logs/access.log;
 }
+
+{% for redirect in redirects %}
+server {
+    listen 80;
+    listen [::]:80;
+    listen 443 ssl;
+
+    server_name {{ redirect.from }}.pycon.ca;
+
+    # Redirect HTTP to HTTPS
+    if ($scheme = http) {
+        rewrite ^(.*) https://$server_name$1;
+    }
+
+    location = / {
+        return 301 {{ redirect.to }};
+    }
+
+    include letsencrypt.conf;
+
+    error_log /srv/www/pycon.ca/redirects/logs/error.log;
+    access_log /srv/www/pycon.ca/redirects/logs/access.log;
+}
+{% endfor %}

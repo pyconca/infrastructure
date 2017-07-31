@@ -139,7 +139,7 @@
   with_items:
     - pycon.ca-www
     - pycon.ca-blog
-    - pycon.ca-cfp
+    # - pycon.ca-cfp
     - pycon.ca-staging-2017
     - pycon.ca-redirects
     - pycon.ca-2017
